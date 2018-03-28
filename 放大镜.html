@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin: 0;padding: 0;}
+			.lit{width: 150px;height: 200px;position: relative;top: 100px;left: 100px;}
+			.hide{display: none;}
+			.lit img{width: 100%;height: 100%;}
+			.lit span{width: 80px;height: 80px;position: absolute;top: 0;left: 0;background: salmon;opacity: 0.3;cursor: move;}
+			.big{width: 320px;height: 320px;position: absolute;top: 100px;left: 300px;overflow: hidden;}
+			.big img{position: absolute;}
+		</style>
+	</head>
+	<body>
+		<div class="lit">
+			<img src="斯嘉丽.jpg">
+			<span class="hide"></span>
+		</div>
+		<div class="big hide">			
+			<img src="斯嘉丽.jpg">							
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="jquery.-1.12.4.min.js" ></script>
+<script type="text/javascript">
+	var oSpan=$('.lit span');
+	$('.lit').mousemove(function(ev){
+		oSpan.show();
+		$('.big').show();
+		var l=ev.pageX-$(this).offset().left-oSpan.width()/2;
+		var t=ev.pageY-$(this).offset().top-oSpan.height()/2;
+		var o_l=$(this).width()-oSpan.width();
+		var o_t=$(this).height()-oSpan.height();
+		if(l<0)l=0;
+		if(t<0)t=0;
+		if(l>o_l)l=o_l;
+		if(t>o_t)t=o_t;
+		oSpan.css({"left":l,"top":t});
+		$('.big img').css({"left":-l*4,"top":-t*4});
+	});
+	$('.lit').mouseleave(function(){
+		oSpan.hide();
+		$('.big').hide();
+	})
+	
+</script>
